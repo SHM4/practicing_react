@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+
+function Hello() {
+
+  // 두 함수는 같은 것. 그냥 함수 모양만 다름.
+  useEffect(() => {
+    console.log("hi :)");
+    return () => console.log("bye :(");
+  }, []);
+  useEffect(function() {
+    console.log("hi :)");
+    return function () {
+      console.log("bye :(");
+    }
+  }, []);
+
+  return <h1>Hello</h1>
+}
 
 function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing((prev) => !prev);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={onClick}>{showing ? "Hide" : "Show" }</button>
+      {showing ? <Hello /> : null}
     </div>
   );
 }
